@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const chromium = require("chrome-aws-lambda");
-const chromium = require("@sparticuz/chromium");
+//const chromium = require("@sparticuz/chromium");
 
 const { CHROME_EXECUTABLE_PATH } = require("./src/config");
 const main = require("./src/main");
