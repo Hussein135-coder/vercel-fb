@@ -14,7 +14,10 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   (async () => {
-    const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox"],
+      headless: true,
+    });
     main(browser);
   })();
   res.json({ hi: "Hi" });
