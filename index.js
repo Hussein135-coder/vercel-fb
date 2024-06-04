@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const puppeteer = require("puppeteer-core");
-const chromium = require("chrome-aws-lambda");
+const chromium = require("@sparticuz/chromium-min");
 
 const { CHROME_EXECUTABLE_PATH } = require("./src/config");
 const main = require("./src/main");
@@ -15,12 +15,11 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   (async () => {
-    const browser = await chromium.puppeteer.launch({
-      args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+    const browser = await puppeteer.launch({
+      args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
-      headless: true,
-      ignoreHTTPSErrors: true,
+      headless: chromium.headless,
     });
     main(browser);
   })();
