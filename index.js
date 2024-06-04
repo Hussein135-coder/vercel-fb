@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
     const browser = await chromium.puppeteer.launch({
       args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
+      executablePath: await chromium.executablePath(),
       headless: true,
       ignoreHTTPSErrors: true,
     });
