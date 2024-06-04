@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium");
 
 //const chromium = require("@sparticuz/chromium");
 
@@ -12,11 +13,16 @@ app.use(cors());
 
 app.use(express.json());
 
+chromium.setHeadlessMode = true;
+chromium.setGraphicsMode = false;
+
 app.get("/", (req, res) => {
   (async () => {
     const browser = await puppeteer.launch({
-      args: ["--no-sandbox"],
-      headless: true,
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
     });
     main(browser);
   })();
