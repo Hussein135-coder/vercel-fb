@@ -16,8 +16,8 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  (async () => {
+app.get("/", async (req, res) => {
+  await (async () => {
     const executablePath = await chromium.executablePath(CHROMIUM_PATH);
     const browser = await puppeteer.launch({
       args: chromium.args,
@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
       executablePath,
       headless: chromium.headless,
     });
+    console.log("lunch");
     main(browser);
   })();
   res.json({ hi: "Hi" });
